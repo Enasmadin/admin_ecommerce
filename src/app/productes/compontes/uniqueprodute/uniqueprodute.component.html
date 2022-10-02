@@ -1,0 +1,19 @@
+<img src="{{data.image}}" class="card-img-top h-25" alt="..." routerLink="/detail/{{data.id}}" >
+  <div class="card-body bg-white " style="width: 100%; height: 100px">
+     <h5 class="card-title ">{{data.title}} </h5>
+
+  </div>
+  <div class="card-body bg-light "  style="width: 100%; height: 900px" >
+      <p class="card-text "> {{data.description}} </p>
+   </div>
+
+  <div class="card-body">
+    <button type="button" class="btn btn-success  float-start"  *ngIf="!addbutton" (click)="addbutton=true">add to card </button>
+    <div class="d-flex w-50" *ngIf="addbutton">
+      <input type="number" class="form-control" [(ngModel)]="amount">
+       <button class="btn btn-danger" (click)="add(); addbutton=false"> Add</button>
+    </div>
+
+    <div  class=" pink float-end rounded-pill "> {{data.price}} LE</div>
+
+  </div>

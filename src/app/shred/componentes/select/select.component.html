@@ -1,0 +1,7 @@
+<label class="mb-2"> {{title}} :</label>
+  <select class="form-select" aria-label="Default select example" (change)="datactchanges($event)">
+    <option selected> all </option>
+    <option value="{{opatin}}" *ngFor="let opatin of data"> {{opatin}} </option>
+
+  </select>
+

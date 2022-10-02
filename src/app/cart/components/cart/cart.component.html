@@ -1,0 +1,48 @@
+<form class="row g-3 mt-2 ms-5" [formGroup]="newTaskForm">
+  <div class="col-auto">
+    <label for="exampleFormControlInput1" class="form-label"> start date :</label>
+    <input type="date" class="form-control" id="exampleFormControlInput1" formControlName="start" >
+  </div>
+  <div class="col-auto">
+    <label for="exampleFormControlInput1" class="form-label"> end date :</label>
+    <input type="date" class="form-control" id="exampleFormControlInput1" formControlName="end" >
+  </div>
+  <div class="col-auto mt-5 ">
+    <button type="submit" class="btn btn-primary " (click) ="applayfilter()">Confirm identity</button>
+  </div>
+</form>
+
+
+
+
+<div class="m-5 border border-1 p-4 " >
+  <table class="table table-striped">
+    <thead>
+      <tr>
+
+        <th scope="col"> date </th>
+        <th scope="col">quantity</th>
+
+        <th scope="col">total</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item  of  carts ; let index =index " >
+
+        <td> {{item.date   | date:'shortDate'}}</td>
+        <td> {{item.products.length}} </td>
+
+        <td>
+           <button type="button" class="btn btn-danger ms-2" (click)="deletecart(item.id)" >Delete</button>
+           <button type="button" class="btn btn-primary ms-3"> view </button>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+
+</div>
+

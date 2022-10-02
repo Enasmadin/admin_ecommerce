@@ -1,0 +1,12 @@
+<div class="mt-5 w-25">
+  <app-select [title]="'catogareys'" [data]="catogary" (selectnative)="filtercatogery($event)"  ></app-select>
+  </div>
+  <div class="row">
+<div class="card mt-4  col-sm-4 col-lg-3 "  *ngFor="let item of productes" [hidden]="loading"  >
+  <app-uniqueprodute [data]="item" (item) ="addtocart($event)"> </app-uniqueprodute>
+</div>
+<div class="text-center w-100" [hidden]="!loading">
+   <!-- <app-spinner></app-spinner>  -->
+
+
+</div>
