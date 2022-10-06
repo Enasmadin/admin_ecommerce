@@ -10,7 +10,7 @@ export class ProducetService {
   constructor( private http: HttpClient) { }
   getallproductes()
   {
-     return this.http.get(environment.baseApi+'products');
+     return this.http.get( environment.baseApi +'products');
   }
   getallcatogary()
   {
@@ -22,7 +22,11 @@ export class ProducetService {
   }
   getproducetbyid( id :any)
   {
-     return this.http.get(environment.baseApi + 'products/'+id)
+     return this.http.get(environment.baseApi+ 'products/'+ id)
+  }
+  createproductes( model:any)
+  {
+     return this.http.post(environment.baseApi+ 'products',model);
   }
 
 }

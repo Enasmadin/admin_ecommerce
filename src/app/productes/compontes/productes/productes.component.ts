@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Producet } from '../../model/producet';
 import { ProducetService } from '../../model/producet.service';
 
@@ -8,33 +9,41 @@ import { ProducetService } from '../../model/producet.service';
   styleUrls: ['./productes.component.css']
 })
 export class ProductesComponent implements OnInit {
-  productes:Producet[]=[];
-  catogary: any[]=[];
-  loading:boolean= false;
+  productes:any[]=[];
+   catogary: any[]=[];
   addproduct: any[] =[];
-  constructor( private service:ProducetService) {
+  base64:any='';
+  form!:FormGroup ;
+  constructor( private service:ProducetService , private fb:FormBuilder) {
 
    }
 
   ngOnInit(): void {
-  }
-  getproductes()
-  {
-    this.loading=true;
-    this.service.getallproductes().subscribe((res:any)=>{
-    this.productes=res;
-    this.loading=false;
-
-    },Error=>{
-      alert('error')
+    this.getproductes();
+    this.getcatogray();
+    this.form = this.fb.group({
+      title:['',[Validators.required]],
+      price:['' ,[Validators.required]],
+      category:['',[Validators.required]],
+      description:['' ,[Validators.required]],
+      image:['',[Validators.required]],
     })
   }
+  getproductes()
+   {
+    this.service.getallproductes().subscribe((res:any)=>
+    {
+        this.productes=res;
+    }, Error =>{
+      alert("error");
+    }
+
+    )}
   getcatogray()
   {
-    this.loading= true ;
+
     this.service.getallcatogary().subscribe((res:any)=>{
       this.catogary=res;
-      this.loading=false;
     },Error=>{
       alert('error')
     })
@@ -42,43 +51,58 @@ export class ProductesComponent implements OnInit {
   filtercatogery(event:any)
   {
 
-    let value = event.target.value;
-     console.log(value);
-    (value=="all")? this.service.getallproductes : this.getproducetcatogary(value);
+    // let value = event.target.value;
+    //  console.log(value);
+    // (value=="all")? this.service.getallproductes : this.getproducetcatogary(value);
+    this.form.get('category')?.setValue(event.target.value);
+    console.log(this.form);
 
 
   }
   getproducetcatogary(keyword:string)
   {
-     this.loading= true ;
+
     this.service.getprodbycatogary(keyword).subscribe((res:any)=>{
        this.productes=res;
-       this.loading= false ;
+
       console.log(this.productes)
     })
   }
-  addtocart(event:any)
+  getimagepath( event:any)
   {
-    console.log(event);
-    if('cart' in localStorage)
-    {
-      this.addproduct = JSON.parse(localStorage.getItem("cart")!)
-      let exist= this.addproduct.find(item=>item.item.id== event.item.id)
-      if (exist)
-      {
-        alert("this is product add alerady")
-      }
-      else
-      this.addproduct.push(event)
-      localStorage.setItem("cart",JSON.stringify(this.addproduct))
-    }
-    else
-    {
-      this.addproduct.push(event)
-      localStorage.setItem("cart",JSON.stringify(this.addproduct))
-    }
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+       this.base64= reader.result;
+       this.form.get('image')?.setValue(this.base64);
+       console.log(this.base64);
 
+    };
   }
 
+  makeproduet()
+  {
+    const model = this.form.value;
+    this.service.createproductes(model).subscribe( (res:any) =>{
 
+         alert("add is successful ");
+      }
+    )
+  }
+  updata(item:any)
+  {
+    this.form.patchValue(
+      {
+        title:item.title,
+        price:item.price,
+        image:item.image,
+        category: item.category,
+        description:item.description,
+
+      }
+
+    )
+    this.base64=item.image;
+  }
 }

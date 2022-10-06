@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CartservicesService } from '../../services/cartservices.service';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { ProducetService } from 'src/app/productes/model/producet.service';
 
 @Component({
   selector: 'app-cart',
@@ -10,8 +11,10 @@ import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 })
 export class CartComponent implements OnInit {
   carts:any[]=[];
+  productes:any[] =[];
+  detalies:any;
   newTaskForm!: FormGroup;
-  constructor( private cartservice:CartservicesService, private fb: FormBuilder)
+  constructor( private cartservice:CartservicesService, private fb: FormBuilder,  private productservic :ProducetService)
   {
 
   }
@@ -52,6 +55,23 @@ export class CartComponent implements OnInit {
       this.getallcarts()
        alert("delted is successfull")
      })
+  }
+  view( index:number)
+  {
+    this.detalies = this.carts[index];
+
+    for(let x in this.detalies.products)
+    {
+       this.productes =[];
+      this.productservic.getproducetbyid(this.detalies.products[x].productId).subscribe(res=>{
+        this.productes.push({item:res , quantity:this.detalies.products[x].quantity});
+         for(let x of this.productes)
+         {
+          console.log(x.item.id);
+         }
+      })
+
+    }
   }
 
 

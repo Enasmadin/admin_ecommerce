@@ -11,6 +11,9 @@ export class SelectComponent implements OnInit {
   @Input() title:string="";
   @Input()  data:any[]=[];
   @Output() selectnative = new EventEmitter();
+  @Input()  all: boolean= true;
+  @Input()  select:any='';
+
 
   ngOnInit(): void {
   }

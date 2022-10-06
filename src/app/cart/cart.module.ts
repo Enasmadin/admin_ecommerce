@@ -7,6 +7,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ShredModule } from '../shred/shred.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProductesModule } from '../productes/productes.module';
+import { ProductesComponent } from '../productes/compontes/productes/productes.component';
 
 
 
@@ -18,14 +20,14 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
      RouterModule,
-   
     BrowserModule,
 
 
-
+    ProductesModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ProductesModule
 
   ]
 })

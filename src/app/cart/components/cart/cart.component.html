@@ -23,7 +23,7 @@
         <th scope="col"> date </th>
         <th scope="col">quantity</th>
 
-        <th scope="col">total</th>
+        <!-- <th scope="col">total</th> -->
 
       </tr>
     </thead>
@@ -32,10 +32,11 @@
 
         <td> {{item.date   | date:'shortDate'}}</td>
         <td> {{item.products.length}} </td>
+        <!-- <td> {{ index}} </td> -->
 
         <td>
-           <button type="button" class="btn btn-danger ms-2" (click)="deletecart(item.id)" >Delete</button>
-           <button type="button" class="btn btn-primary ms-3"> view </button>
+           <button type="button" class="btn btn-danger ms-2 mr-2" (click)="deletecart(item.id)" >Delete</button>
+           <button type="button" class="btn btn-primary ms-3" data-toggle="modal" data-target="#viewmodel" (click) ="view(index)"> view </button>
         </td>
       </tr>
 
@@ -44,5 +45,56 @@
 
 
 
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="viewmodel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> all producets requried  </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">name</th>
+              <th scope="col">price</th>
+              <th scope="col">quantity</th>
+
+              <th scope="col">total</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item  of  productes ; let index =index " >
+              <td  > <img  src="{{ item.item.image}}"  style="width:50px;"></td>
+              <td> {{item.item.title}}</td>
+              <td> {{item.item.price}} L.E</td>
+              <td> {{ item.quantity}}</td>
+              <td>  {{item.quantity * item.item.price}} L.E</td>
+
+
+
+
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
 </div>
 

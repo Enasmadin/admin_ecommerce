@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { SelectComponent } from '../shred/componentes/select/select.component';
 import { ShredModule } from '../shred/shred.module';
+import { HttpClientModule } from '@angular/common/http';
+import { shareReplay } from 'rxjs';
 
 
 
@@ -24,7 +26,10 @@ import { ShredModule } from '../shred/shred.module';
     BrowserModule,
     ShredModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+  
+
 
 
   ]
